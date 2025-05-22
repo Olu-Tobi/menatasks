@@ -35,7 +35,7 @@ A modern, responsive task management application built with **Next.js (App Route
 ## 🛠️ Installation
 
 ```bash
-git clone https://github.com/your-username/task-manager.git
+git clone https://github.com/Olu-Tobi/menatasks.git
 cd task-manager
 npm install
 npm run dev
