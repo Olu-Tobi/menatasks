@@ -4,7 +4,7 @@ A modern, responsive task management application built with **Next.js (App Route
 
 ## 🚀 Live Demo
 
-👉 [View App on Vercel](https://your-vercel-link.vercel.app)
+👉 [View App on Vercel](https://menatasks.vercel.app/)
 
 ---
 
@@ -40,6 +40,21 @@ cd task-manager
 npm install
 npm run dev
 ```
+
+---
+
+## 🛠️ TypeScript Configuration
+
+This project uses a strict and modern TypeScript setup tailored for Next.js (App Router) and React 17+:
+
+````jsonc
+// tsconfig.json
+{
+  "compilerOptions": {
+    ...
+    "jsx": "react-jsx" // Enables the new JSX transform (React 17+)
+  }
+}
 
 ---
 
@@ -99,7 +114,7 @@ npm run dev
 
 ```bash
 npm test
-```
+````
 
 Uses:
 

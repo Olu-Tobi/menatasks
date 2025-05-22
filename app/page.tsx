@@ -4,12 +4,16 @@ import { useState } from "react";
 import Dashboard from "@/components/Dashboard";
 import Sidebar from "@/components/Sidebar";
 import { CgMenuLeft } from "react-icons/cg";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const theme = useSelector((state: RootState) => state.ui.theme);
+  const isDark = theme === "dark";
 
   return (
-    <main className="h-screen flex  relative">
+    <main className={`h-screen flex ${isDark ? ' bg-[var(--bg-color-body-dark)]' : 'bg-[var(--bg-color-body-light)]'} relative`}>
       {/* Sidebar */}
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
