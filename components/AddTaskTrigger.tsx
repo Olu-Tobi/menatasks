@@ -25,16 +25,16 @@ export default function AddTaskTrigger() {
             {/* Modal Popup */}
             {showForm && (
                 <div className="fixed inset-0 z-50 flex   items-center justify-center bg-black/50">
-                    <div className="bg-white dark:bg-zinc-800 max-sm:w-[90%] p-6 rounded-lg shadow-lg w-full max-w-md relative">
+                    <div className="bg-white  max-sm:w-[90%] p-6 rounded-lg shadow-lg w-full max-w-md relative">
                         {/* Close Button */}
                         <button
                             onClick={toggleForm}
-                            className="absolute top-3 right-3 text-zinc-500 hover:text-zinc-900 dark:hover:text-white"
+                            className="absolute top-3 right-3 text-zinc-500 hover:text-zinc-900 "
                         >
                             <IoClose className="text-2xl" />
                         </button>
 
-                        <h2 className="text-lg font-semibold mb-4 text-center text-zinc-800 dark:text-zinc-100">
+                        <h2 className="text-lg font-semibold mb-4 text-center text-zinc-800 ">
                             Create New Task
                         </h2>
 

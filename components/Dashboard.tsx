@@ -55,7 +55,7 @@ const Dashboard = () => {
                         width={40}
                         height={40}
                         alt="User Avatar"
-                        className="rounded-full border border-zinc-300 dark:border-zinc-700 max-[1280px]:w-[2.5rem]"
+                        className="rounded-full border border-zinc-300  max-[1280px]:w-[2.5rem]"
                         priority
                     />
                 </div>
@@ -87,7 +87,7 @@ const Dashboard = () => {
                         <TaskListSkeleton />
                     </div>
                 ) : tasks.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center text-center p-6 border border-dashed border-zinc-400 dark:border-zinc-600 rounded-md text-zinc-600 dark:text-zinc-400">
+                    <div className="flex flex-col items-center justify-center text-center p-6 border border-dashed border-zinc-400  rounded-md text-zinc-600 ">
                         <p className="mb-6 text-lg">Add new task</p>
                     </div>
                 ) : (
