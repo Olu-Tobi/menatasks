@@ -7,7 +7,7 @@ import TaskCard from '@/components/TaskCard';
 import { uiReducer } from '@/store/slices/uiSlice';
 import { taskReducer } from '@/store/slices/taskSlice';
 
-// Mock modals
+
 jest.mock('@/components/EditTaskModal', () => {
     const React = require('react');
     return () => React.createElement('div', null, 'Edit Modal');
