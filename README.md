@@ -32,6 +32,29 @@ A modern, responsive task management application built with **Next.js (App Route
 
 ---
 
+## 📡 API Source & Limitations
+
+This app uses the [JSONPlaceholder API](https://jsonplaceholder.typicode.com/todos) as a mock data source for task operations.
+
+### ⚠️ Limitations of JSONPlaceholder:
+
+- Although it responds to `POST`, `PATCH`, and `DELETE` requests, **these changes are not persisted** on the server.
+- The API simulates success responses, but the underlying data remains static and unchanged on refresh.
+
+### 💡 Workaround Implemented:
+
+To overcome these limitations:
+
+- **Redux Toolkit** is used to manage the local state of tasks.
+- **Optimistic updates** are implemented via thunks:
+  - Task creation, updates, and deletions are reflected immediately in the UI.
+  - Local state is updated even though the backend doesn’t persist changes.
+- Combined with **SWR** for fetching and caching, the app feels responsive and consistent.
+
+This enables full CRUD interactivity with a mock API while keeping the architecture ready for a real backend integration.
+
+---
+
 ## 🛠️ Installation
 
 ```bash
