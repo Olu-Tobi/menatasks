@@ -1,21 +1,55 @@
 import { AppDispatch } from '..';
 import axios from 'axios';
 import { setTasks, removeTask, updateTask, addTask } from '../slices/taskSlice';
+import { loadTasksFromStorage, saveTasksToStorage } from '@/utils/localStorage';
 
 // GET all tasks
 export const fetchTasks = () => async (dispatch: AppDispatch) => {
-    const res = await axios.get('/api/tasks');
-    dispatch(setTasks(res.data));
+    try {
+        const res = await axios.get('/api/tasks');
+        const apiTasks = res.data;
+
+        // Load local tasks (previously added ones)
+        const localTasks = loadTasksFromStorage() || [];
+
+        // Find the max ID from API so we don’t conflict
+        const maxApiId = Math.max(...apiTasks.map((t: any) => t.id), 0);
+
+        // Filter local tasks that have IDs higher than API tasks (i.e., user-created)
+        const onlyLocal = localTasks.filter((t: any) => t.id > maxApiId);
+
+        // Merge both
+        const combined = [...onlyLocal, ...apiTasks];
+
+
+        // Save merged version back to localStorage and update Redux state
+        saveTasksToStorage(combined);
+        dispatch(setTasks(combined));
+    } catch (err) {
+        console.error('Error fetching tasks:', err);
+    }
 };
 
+
 // Create new task (simulate by manually adding it)
-export const createTask = (task: { title: string }) => async (dispatch: AppDispatch) => {
+export const createTask = (task: { title: string }) => async (dispatch: AppDispatch, getState: () => any) => {
     const res = await axios.post('/api/tasks', {
         ...task,
         completed: false,
     });
-    dispatch(addTask(res.data));
+
+    // Use Redux state to find max ID
+    const existingTasks = getState().task.tasks;
+    const maxId = existingTasks.length ? Math.max(...existingTasks.map((t: any) => t.id)) : 200;
+
+    const newTask = {
+        ...res.data,
+        id: maxId + 1,
+    };
+
+    dispatch(addTask(newTask));
 };
+
 
 
 export const updateTaskFunc =

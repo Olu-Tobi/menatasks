@@ -1,4 +1,6 @@
+
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { loadTasksFromStorage, saveTasksToStorage } from '@/utils/localStorage';
 
 type Task = {
     id: number;
@@ -12,8 +14,11 @@ interface TaskState {
     search: string;
 }
 
+// Load from localStorage if available
+const localTasks = loadTasksFromStorage();
+
 const initialState: TaskState = {
-    tasks: [],
+    tasks: localTasks || [],
     filter: 'all',
     search: '',
 };
@@ -24,6 +29,22 @@ const taskSlice = createSlice({
     reducers: {
         setTasks(state, action: PayloadAction<Task[]>) {
             state.tasks = action.payload;
+            saveTasksToStorage(state.tasks);
+        },
+        addTask(state, action: PayloadAction<Task>) {
+            state.tasks.unshift(action.payload);
+            saveTasksToStorage(state.tasks);
+        },
+        updateTask(state, action: PayloadAction<Task>) {
+            const index = state.tasks.findIndex((t) => t.id === action.payload.id);
+            if (index !== -1) {
+                state.tasks[index] = action.payload;
+                saveTasksToStorage(state.tasks);
+            }
+        },
+        removeTask(state, action: PayloadAction<number>) {
+            state.tasks = state.tasks.filter((task) => task.id !== action.payload);
+            saveTasksToStorage(state.tasks);
         },
         setFilter(state, action: PayloadAction<TaskState['filter']>) {
             state.filter = action.payload;
@@ -31,20 +52,16 @@ const taskSlice = createSlice({
         setSearch(state, action: PayloadAction<string>) {
             state.search = action.payload;
         },
-        addTask(state, action: PayloadAction<Task>) {
-            state.tasks.unshift(action.payload); // Add to top of list
-        },
-        updateTask(state, action: PayloadAction<Task>) {
-            const index = state.tasks.findIndex((t) => t.id === action.payload.id);
-            if (index !== -1) {
-                state.tasks[index] = action.payload;
-            }
-        },
-        removeTask(state, action: PayloadAction<number>) {
-            state.tasks = state.tasks.filter((task) => task.id !== action.payload);
-        },
     },
 });
 
-export const { setTasks, setFilter, setSearch, addTask, updateTask, removeTask } = taskSlice.actions;
+export const {
+    setTasks,
+    addTask,
+    updateTask,
+    removeTask,
+    setFilter,
+    setSearch,
+} = taskSlice.actions;
+
 export const taskReducer = taskSlice.reducer;
