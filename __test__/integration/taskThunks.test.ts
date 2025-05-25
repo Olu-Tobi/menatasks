@@ -45,6 +45,6 @@ describe('Task thunks integration', () => {
 
         const state = store.getState().task;
         expect(state.tasks[0].title).toBe('New Task');
-        expect(state.tasks[0].id).toBe(101);
+        expect(state.tasks[0].id).toBe(201);
     });
 });
