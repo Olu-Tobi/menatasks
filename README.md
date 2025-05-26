@@ -68,7 +68,7 @@ npm run dev
 
 ## 🛠️ TypeScript Configuration
 
-This project uses a strict and modern TypeScript setup tailored for Next.js (App Router) and React 17+:
+This project test suite uses a strict and modern TypeScript setup tailored for Next.js (App Router) and React 17+:
 
 ````jsonc
 // tsconfig.json
